@@ -29,12 +29,10 @@ export default function reducer(state = initialState, action = {}) {
     case "dic/CREATE": {
       console.log("이제 값을 바꿀거야!");
       const new_dic_list = [...state.inputs, action.dic];
-      console.log(new_dic_list)
       return { inputs: new_dic_list };
     }
 
     case "bucket/UPDATE": {
-   
       const new_bucket_list = state.list.map((l, idx) => {
         if(parseInt(action.bucket_index) === idx) {
           return {...l, completed: true};

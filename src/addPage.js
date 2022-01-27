@@ -3,22 +3,37 @@ import React from 'react';
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { createDic } from "./redux/modules/dic"
+import { useNavigate } from "react-router-dom";
+import Button from '@mui/material/Button';
+
 
 
 const AddPage = (props) => {
-
+  let navigate = useNavigate();
 
   const word = React.useRef(null);
   const explain = React.useRef(null);
   const example = React.useRef(null);
   const dispatch = useDispatch();
+
+
   const addDictList = () => {
-
-    dispatch(createDic({ word: word.current.value, 
-      explain: explain.current.value, example: example.current.value}
-));
-
-
+    if (word.current.value === "") {
+      window.location = "/addpage"
+      alert("단어를 입력해주세요")
+    } else if (explain.current.value === "") {
+      window.location = "/addpage"
+      alert("설명을 입력해주세요")
+    } else if (example.current.value === "") {
+      window.location = "/addpage"
+      alert("예시를 입력해주세요")
+    } else {
+      dispatch(createDic({
+        word: word.current.value,
+        explain: explain.current.value, example: example.current.value
+      }
+      ));
+    }
   };
 
   return (
@@ -26,8 +41,8 @@ const AddPage = (props) => {
       <Container>
         <Title>내 사전</Title>
         <Line />
-        <h2>단어 추가하기</h2>
-        <Input>
+        <ItemStyle>
+            <Input>
           <input name="name" placeholder="단어" ref={word} />
         </Input>
         <Input>
@@ -36,12 +51,21 @@ const AddPage = (props) => {
         <Input>
           <input name="example" placeholder="예시" ref={example} />
         </Input>
-        <input  />
-        <button onClick={addDictList}>추가하기</button>
+        <Button
+          style={style.button}
+          variant='outlined'
+          color='secondary'
+          onClick={() => {
+            addDictList();
+            // 온클릭 중복하려면 뒤에() 붙여야한다
+            navigate("/");
+          }}>추가하기</Button>
+        </ItemStyle>
+      
+
       </Container>
-      <Input>
-       
-      </Input>
+      
+
     </>
 
   );
@@ -49,11 +73,23 @@ const AddPage = (props) => {
 
 export default AddPage;
 
+const style = {
+  button: {
+    width: "90%",
+    display: "block",
+    margin: "30px auto 0px auto",
+    padding: "5px"
+  },
+  text: {
+    textAlign: "center"
+  }
+  
+}
 
 const Container = styled.div`
     max-width: 350px;
     min-height: 60vh;
-    background-color: #fff;
+    background-color: #FFFAFA;
     padding: 16px;
     margin: 100px auto;
     border-radius: 5px;
@@ -67,22 +103,22 @@ const Title = styled.h1`
 
 const Line = styled.hr`
     margin: 16px 10px;
-    border: 1px dotted #ddd;
+    border: 2px dotted #ddd;
     `;
 
 
-// const ItemStyle = styled.div`
-//     padding: 5px;
-//     margin: 8px;
-//     background-color: aliceblue;
-//     line-height: 20px
-//     `;
+const ItemStyle = styled.div`
+    padding: 5px;
+    margin: 50px 8px 8px 8px;
+    background-color: #E6E6FA;
+    line-height: 20px
+    `;
 
 
 const Input = styled.div`
   max-width: "100%",
   min-height: 20vh;
-  background-color: #fff;
+  background-color: #E6E6FA;
   padding: 10px;
   margin: 10px 10px;
   
@@ -104,15 +140,4 @@ const Input = styled.div`
 
 `;
 
-const Button = styled.div`
-  width: 80%;
-  height: 5vh;
-  color: #fff;
-  border: #a673ff;
-  background: #a673ff;
-  disply: block;
-  margin: auto;
-  text-align: center;
-  padding: 20px 0
-  
-`
+
