@@ -1,9 +1,25 @@
 // 리액트 패키지를 불러옵니다.
-import React from "react";
+import React from 'react';
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { createDic } from "./redux/modules/dic"
+
 
 const AddPage = (props) => {
 
+
+  const word = React.useRef(null);
+  const explain = React.useRef(null);
+  const example = React.useRef(null);
+  const dispatch = useDispatch();
+  const addDictList = () => {
+
+    dispatch(createDic({ word: word.current.value, 
+      explain: explain.current.value, example: example.current.value}
+));
+
+
+  };
 
   return (
     <>
@@ -11,40 +27,28 @@ const AddPage = (props) => {
         <Title>내 사전</Title>
         <Line />
         <h2>단어 추가하기</h2>
-        <ItemStyle>
-        
         <Input>
-        <input type="text"/>
+          <input name="name" placeholder="단어" ref={word} />
         </Input>
-        </ItemStyle>
-        <ItemStyle>
         <Input>
-          <input type="text" />
+          <input name="explain" placeholder="설명" ref={explain} />
         </Input>
-        </ItemStyle>
-        <ItemStyle>
         <Input>
-          <input type="text" />
+          <input name="example" placeholder="예시" ref={example} />
         </Input>
-        </ItemStyle>
-        <Button>
-        <p style={style}>추가하기</p>
-        </Button>
+        <input  />
+        <button onClick={addDictList}>추가하기</button>
       </Container>
-
+      <Input>
+       
+      </Input>
     </>
 
-  )
-
-
+  );
 };
 
 export default AddPage;
 
-const style = {
-  color: "black",
-  marginTop: "14px",
-}
 
 const Container = styled.div`
     max-width: 350px;
@@ -67,12 +71,12 @@ const Line = styled.hr`
     `;
 
 
-const ItemStyle = styled.div`
-    padding: 5px;
-    margin: 8px;
-    background-color: aliceblue;
-    line-height: 20px
-    `;
+// const ItemStyle = styled.div`
+//     padding: 5px;
+//     margin: 8px;
+//     background-color: aliceblue;
+//     line-height: 20px
+//     `;
 
 
 const Input = styled.div`

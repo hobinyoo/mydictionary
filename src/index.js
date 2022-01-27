@@ -1,15 +1,21 @@
 import React from 'react';
-import ReactDOM from "react-dom";
-import { BrowserRouter} from "react-router-dom";
+import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter} from "react-router-dom";
 
-// 이부분이 index.html에 있는 div#root에 우리가 만든 컴포넌트를 실제로 랜더링하도록 연결해주는 부분입니다.
+// 우리의 버킷리스트에 리덕스를 주입해줄 프로바이더를 불러옵니다!
+import { Provider } from "react-redux";
+// 연결할 스토어도 가지고 와요.
+import store from "./redux/configStore";
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

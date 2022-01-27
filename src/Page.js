@@ -1,22 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-
+import {useSelector} from "react-redux"
 
 const Page = () => {
+    
     let navigate = useNavigate();
+    const inputs = useSelector((state) => state.dic.inputs);
+ 
 
     return (
         <Container>
             <Title>My Dictionary</Title>
             <Line />
-            <p>단어</p>
-            <h1>히히</h1>
-            <p>설명</p>
-            <h1>히히를 변형한 단어</h1>
-            <h1>숫자 1을 "1로 쓴다"</h1>
-            <p>예시</p>
-            <p>저 친구가 초콜릿을 줬어</p>
+            {inputs.map((input, i) => {
+                console.log(i)
+                return (
+                    <div key={i}>
+                    <h1>단어</h1>
+                    <p>{input.word}</p>
+                    <h1>설명</h1>
+                    <p>{input.explain}</p>
+                    <h1>예시</h1>
+                    <p style={style.blue}>{input.example}</p>
+                    </div>
+                );
+            })}
+           
             <ItemStyle>
                 <div onClick={() => { navigate("/addpage"); }}>눌러봐</div>
             </ItemStyle>
@@ -26,8 +36,12 @@ const Page = () => {
     );
 };
 
-
-
+const style = {
+    
+    blue: {
+        color: "blue",
+    }
+}
 const Container = styled.div`
     max-width: 350px;
     min-height: 60vh;
@@ -48,13 +62,13 @@ const Line = styled.hr`
     border: 1px dotted #ddd;
     `;
 
-const ListStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    `;
+// const ListStyle = styled.div`
+//     display: flex;
+//     flex-direction: column;
+//     height: 100%;
+//     overflow-x: hidden;
+//     overflow-y: auto;
+//     `;
 
 const ItemStyle = styled.div`
     padding: 16px;
