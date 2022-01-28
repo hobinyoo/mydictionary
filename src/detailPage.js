@@ -2,13 +2,17 @@
 import React from 'react';
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { createDic } from "./redux/modules/dic"
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
+import { amendDic } from "./redux/modules/dic"
+import { useParams } from "react-router-dom";
 
 
-
-const AddPage = () => {
+const DetailPage = (props) => {
+  const {index} = useParams();
+  const dic_index = {index}.index
+ 
+  
   let navigate = useNavigate();
 
   const word = React.useRef(null);
@@ -19,7 +23,7 @@ const AddPage = () => {
   const dispatch = useDispatch();
 
 
-  const addDictList = () => {
+  const amendDictList = () => {
     if (word.current.value === "") {
       window.location = "/addpage"
       alert("단어를 입력해주세요")
@@ -30,13 +34,15 @@ const AddPage = () => {
       window.location = "/addpage"
       alert("예시를 입력해주세요")
     } else {
-      dispatch(createDic({
+      
+        dispatch(amendDic({
         word: word.current.value,
         explain: explain.current.value, 
         example: example.current.value,
         mean : mean.current.value,
         same : same.current.value,
         completed: false,
+        index : dic_index
       }
       ));
     }
@@ -68,10 +74,10 @@ const AddPage = () => {
           variant='outlined'
           color='secondary'
           onClick={() => {
-            addDictList();
+            amendDictList();
             // 온클릭 중복하려면 뒤에() 붙여야한다
             navigate("/");
-          }}>추가하기</Button>
+          }}>수정하기</Button>
         </ItemStyle>
       
 
@@ -83,7 +89,7 @@ const AddPage = () => {
   );
 };
 
-export default AddPage;
+export default DetailPage;
 
 const style = {
   button: {
