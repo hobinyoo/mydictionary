@@ -1,0 +1,12 @@
+.addbutton {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;   
+    transition: all ease 0.5s;
+}
+.addbutton:hover {
+    transform: rotate( 45deg );
+}
+
+

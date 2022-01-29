@@ -6,6 +6,10 @@ import { IoIosAddCircle } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { updateDic, deleteDic } from "./redux/modules/dic";
 import './App.css';
+import './Page.css';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import BorderColorTwoToneIcon from '@mui/icons-material/BorderColorTwoTone';
+import ClearTwoToneIcon from '@mui/icons-material/ClearTwoTone';
 
 
 const Page = () => {
@@ -21,39 +25,62 @@ const Page = () => {
                 <Line />
             </Title>
 
-            <IoIosAddCircle style={{
-                position: "fixed",
-                bottom: "0",
-                right: "0",
-                margin: "20px"
-            }} size={70} color="purple"
+            <IoIosAddCircle className="addbutton" size={70} color="purple"
                 onClick={() => { navigate("/addpage"); }} />
             <Container>
                 <Flexbox>
                     {inputs.map((input, index) => {
                         return (
                             <Item key={index} completed={input.completed}>
-                                <h4 style={{
-                                    fontSize: "24px"
-                                }}>{input.word}</h4>
-                                <span>[{input.mean}]</span>
-                                <p>{input.explain}</p>
-                                <p>{input.example}</p>
-                                <p>{input.same}</p>
-                                <button onClick={() => {
-                                    dispatch(updateDic(index));
-                                }}>완료</button>
-                                <button onClick={() => {
-                                    navigate("/detailpage" + index);
-                                }}>수정</button>
-                                <button onClick={() => {
-                                    dispatch(deleteDic(index));
-                                }}>삭제</button>
+                                <div>
+                                    <h4 style={{
+                                        fontSize: "24px",
+                                        margin: "5px 10px"
+                                    }}>{input.word}</h4>
+                                    <div style={{
+                                        marginRight: "1px",
+                                        color: "purple",
+                                        float: "right",
+                                        margin: "-32px 0px 0px 0px"
+                                    }}> 
+                                        <CheckCircleRoundedIcon onClick={() => {
+                                            dispatch(updateDic(index));
+                                        }} />
+                                        <BorderColorTwoToneIcon onClick={() => {
+                                            navigate("/detailpage" + index);
+                                        }} />
+                                        <ClearTwoToneIcon onClick={() => {
+                                            dispatch(deleteDic(index));
+                                        }} />
+                                    </div>
+
+                                </div>
+                                <span style={{
+                                    fontSize: "12px",
+                                    margin: "5px 10px"
+                                }}>[{input.mean}]</span>
+                                <p style={{
+                                    fontSize: "15px",
+                                    margin: "5px 10px"
+                                }}>{input.explain}</p>
+                                <p style={{
+                                    fontSize: "15px",
+                                    margin: "5px 10px",
+                                    color: "blue"
+                                }}>{input.example}</p>
+                                <p style={{
+                                    fontSize: "15px",
+                                    margin: "5px 10px",
+                                    color: "blue"
+                                }}>{input.same}</p>
+
                             </Item>
                         );
                     })}
                 </Flexbox>
             </Container>
+
+
         </>
 
     );
@@ -86,10 +113,10 @@ const Flexbox = styled.div`
 
 // props는 Input의 props를 넘겨주는 것! 자바스크립트를 쓰려면 ${}를 넣어줘야함
 const Item = styled.div` 
-  background-color: ${(inputs) => (inputs.completed ? "#673ab7" : "#E6E6FA")};
+  background-color: ${(inputs) => (inputs.completed ? "#673ab7" : "#D8BFD8")};
   border-radius: 10px;
   border: 2px solid #673ab7;
-  margin: 30px 15px 30px 15px
+  margin: 15px 15px 15px 15px
 
 `;
 
