@@ -5,6 +5,8 @@ import { useSelector } from "react-redux"
 import { IoIosAddCircle } from "react-icons/io";
 import { useDispatch } from "react-redux";
 import { updateDic, deleteDic } from "./redux/modules/dic";
+import './App.css';
+
 
 const Page = () => {
   
@@ -15,24 +17,28 @@ const Page = () => {
 
     return (
         <>
-            <Title>My Dictionary</Title>
-            <IoIosAddCircle style={style.right} size={50} color="purple"
-                onClick={() => { navigate("/addpage"); }} />
+            <Title>My Dictionary
             <Line />
-            <ListStyle>
+            </Title>
+            
+            <IoIosAddCircle style={{
+                position: "fixed",
+                bottom: "0",
+                right: "0",
+                margin: "20px"
+            }} size={70} color="purple"
+                onClick={() => { navigate("/addpage"); }} />
+            <Container>   
                 {inputs.map((input, index) => {
                     return (
-                        <Input key={index} completed={input.completed}>
-                            <p>단어</p>
-                            <h2>{input.word}</h2>
-                            <p>뜻</p>
-                            <h2>{input.mean}</h2>
-                            <p>설명</p>
-                            <h2>{input.explain}</h2>
-                            <p>예시</p>
-                            <h2 style={style.blue}>{input.example}</h2>
-                            <p>비슷한단어</p>
-                            <h2 style={style.blue}>{input.same}</h2>
+                        <Item key={index} completed={input.completed}>
+                            <h4 style={{
+                                fontSize: "24px"
+                            }}>{input.word}</h4>
+                            <span>[{input.mean}]</span>
+                            <p>{input.explain}</p>
+                            <p>{input.example}</p>
+                            <p>{input.same}</p>
                             <button onClick={() => {
                                 dispatch(updateDic(index));
                             }}>완료</button>
@@ -42,80 +48,44 @@ const Page = () => {
                             <button onClick={() => {
                                 dispatch(deleteDic(index));
                             }}>삭제</button>
-                        </Input>
-
+                        </Item>
                     );
-                })}
-            </ListStyle>
+                })}   
+            </Container>
         </>
 
     );
 };
 
-
-// props는 Input의 props를 넘겨주는 것! 자바스크립트를 쓰려면 ${}를 넣어줘야함
-const Input = styled.div`
-  max-width: "100%",
-  min-height: 20vh;
-  background-color: ${(props) => (props.completed ? "#673ab7" : "#E6E6FA")};
-  padding: 5px;
-  margin: 5px 10px;
-  & > * {
-    padding : 10px;
-  }
-`;
-
-const ListStyle = styled.div`
-    display: flex;
-    flex-direction: column;
-    width: 300px;
-    margin: auto;
-`;
-const style = {
-    blue: {
-        color: "blue",
-    },
-    right: {
-        width: "50px",
-        height: "50px",
-        float: "right",
-        position: "relative"
-    }
-}
-// const Container = styled.div`
-//     max-width: 350px;
-//     min-height: 60vh;
-//     background-color: #FFFAFA;
-//     padding: 16px;
-//     margin: 100px auto;
-//     border-radius: 5px;
-//     border: 1px solid #D8BFD8;
-//     flex-direction: column;
-//     `;
-
 const Title = styled.h1`
     color: slateblue;
+    block: none;
     text-align: center;
+    line-height: 100px;
+    background-color: white;
+    height: 110px;
+    margin-top: 0px;
     `;
 
 const Line = styled.hr`
-    margin: 16px 10px;
-    border: 2px dotted #ddd;
+    border: 2px dotted #ddd;`;
+
+const Container = styled.div`  
+
+    width: 70vw;
+    margin: auto;
+    display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(25%, auto));
     `;
 
-// const ListStyle = styled.div`
-//     display: flex;
-//     flex-direction: column;
-//     height: 100%;
-//     overflow-x: hidden;
-//     overflow-y: auto;
-//     `;
 
-// const ItemStyle = styled.div`
-//     padding: 16px;
-//     margin: 8px;
-//     background-color: aliceblue;
-//     line-height: 30px
-//     `;
+// props는 Input의 props를 넘겨주는 것! 자바스크립트를 쓰려면 ${}를 넣어줘야함
+const Item = styled.div`
+  background-color: ${(inputs) => (inputs.completed ? "#673ab7" : "#E6E6FA")};
+  border-radius: 10px;
+  border: 2px solid #673ab7;
+  margin: 30px 30px 30px 30px
+`;
+// &:nth-child(${(inputs) => (inputs.key)}) { grid-column: auto / span 1; }
 
 export default Page;

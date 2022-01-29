@@ -3,11 +3,10 @@ import React from "react";
 import Page from "./Page";
 import AddPage from "./addPage";
 import DetailPage from "./detailPage";
-
+import './App.css';
 
 function App() {
   
-    
   return (
     <div className="App">
         <Routes>

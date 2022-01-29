@@ -10,7 +10,9 @@ import { useParams } from "react-router-dom";
 
 const DetailPage = (props) => {
   const {index} = useParams();
+  
   const dic_index = {index}.index
+  
  
   
   let navigate = useNavigate();
