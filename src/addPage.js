@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from "styled-components";
 import { useDispatch } from "react-redux";
-import { createDic } from "./redux/modules/dic"
+import { createDicFB } from "./redux/modules/dic"
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
 
@@ -30,7 +30,7 @@ const AddPage = () => {
       window.location = "/addpage"
       alert("예시를 입력해주세요")
     } else {
-      dispatch(createDic({
+      dispatch(createDicFB({
         word: word.current.value,
         explain: explain.current.value, 
         example: example.current.value,

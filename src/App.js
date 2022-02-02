@@ -4,9 +4,17 @@ import Page from "./Page";
 import AddPage from "./addPage";
 import DetailPage from "./detailPage";
 import './App.css';
+import { loadDicFB } from "./redux/modules/dic";
+import {useDispatch} from "react-redux";
 
 function App() {
   
+  const dispatch = useDispatch();
+  
+  React.useEffect(() => {
+    dispatch(loadDicFB());
+  }, [])
+
   return (
     <div className="App">
         <Routes>

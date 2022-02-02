@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Button from '@mui/material/Button';
-import { amendDic } from "./redux/modules/dic"
+import { amendDicFB } from "./redux/modules/dic"
 import { useParams } from "react-router-dom";
 
 
@@ -37,13 +37,12 @@ const DetailPage = (props) => {
       alert("예시를 입력해주세요")
     } else {
       
-        dispatch(amendDic({
+        dispatch(amendDicFB({
         word: word.current.value,
         explain: explain.current.value, 
         example: example.current.value,
         mean : mean.current.value,
         same : same.current.value,
-        completed: false,
         index : dic_index
       }
       ));

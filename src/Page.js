@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux"
 import { IoIosAddCircle } from "react-icons/io";
 import { useDispatch } from "react-redux";
-import { updateDic, deleteDic } from "./redux/modules/dic";
+import { updateDicFB, deleteDicFB } from "./redux/modules/dic";
 import './App.css';
 import './Page.css';
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
@@ -44,13 +44,14 @@ const Page = () => {
                                         margin: "-32px 0px 0px 0px"
                                     }}> 
                                         <CheckCircleRoundedIcon onClick={() => {
-                                            dispatch(updateDic(index));
+                                            dispatch(updateDicFB(inputs[index].id));
+                                            //업데이트를 위해서는 아이디값을 넘겨줘야한다!!!
                                         }} />
                                         <BorderColorTwoToneIcon onClick={() => {
                                             navigate("/detailpage" + index);
                                         }} />
-                                        <ClearTwoToneIcon onClick={() => {
-                                            dispatch(deleteDic(index));
+                                        <ClearTwoToneIcon onClick={() => {                                     
+                                            dispatch(deleteDicFB(inputs[index].id));
                                         }} />
                                     </div>
 
